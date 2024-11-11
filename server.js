@@ -21,8 +21,8 @@ const locations = [
     {
     "id": 1,
     "name": "Colorado",
-    "image": "images/colorado.jpg",
-    "detail_image": "images/dest-colorado.jpg",
+    "image": "/images/colorado.jpg",
+    "detail_image": "/images/dest-colorado.jpg",
     "title": "Ski Colorado",
     "resorts": [
     "Vail",
