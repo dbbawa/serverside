@@ -61,8 +61,8 @@ const locations = [
 {
     "id": 2,
     "name": "Vermont",
-    "image": "images/vermont-page.jpg",
-    "detail_image": "images/dest-vermont.jpg",
+    "image": "vermont-page.jpg",
+    "detail_image": "dest-vermont.jpg",
     "title": "Ski Vermont",
     "resorts": [
     "Killington",
@@ -101,8 +101,8 @@ const locations = [
 {
     "id": 3,
     "name": "Utah",
-    "image": "images/utah-page.jpg",
-    "detail_image": "images/dest-utah.jpg",
+    "image": "utah-page.jpg",
+    "detail_image": "dest-utah.jpg",
     "title": "Ski Utah",
     "resorts": [
     "Park City",
@@ -139,8 +139,8 @@ const locations = [
 {
     "id": 4,
     "name": "Maine",
-    "image": "images/maine-page.jpg",
-    "detail_image": "images/dest-maine.jpg",
+    "image": "maine-page.jpg",
+    "detail_image": "dest-maine.jpg",
     "title": "Ski Maine",
     "resorts": [
     "Sunday River",
@@ -176,8 +176,8 @@ const locations = [
 {
     "id": 5,
     "name": "New York",
-    "image": "images/ny-page.jpg",
-    "detail_image": "images/dest-ny.jpg",
+    "image": "ny-page.jpg",
+    "detail_image": "dest-ny.jpg",
     "title": "Ski New York",
     "resorts": [
     "Whiteface Mountain",
@@ -213,8 +213,8 @@ const locations = [
 {
     "id": 6,
     "name": "Canada",
-    "image": "images/canada-page.jpg",
-    "detail_image": "images/dest-canada.jpg",
+    "image": "canada-page.jpg",
+    "detail_image": "dest-canada.jpg",
     "title": "Ski Canada",
     "resorts": [
     "Whistler Blackcomb",
@@ -251,8 +251,8 @@ const locations = [
 {
     "id": 7,
     "name": "California",
-    "image": "images/california-page.jpg",
-    "detail_image": "images/california.jpg",
+    "image": "california-page.jpg",
+    "detail_image": "california.jpg",
     "title": "Ski California",
     "resorts": [
     "Mammoth Mountain",
@@ -287,8 +287,8 @@ const locations = [
 {
     "id": 8,
     "name": "Washington",
-    "image": "images/washington-page.jpg",
-    "detail_image": "images/washington.jpg",
+    "image": "washington-page.jpg",
+    "detail_image": "washington.jpg",
     "title": "Ski Washington",
     "resorts": [
     "Crystal Mountain Resorts",
