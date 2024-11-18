@@ -347,7 +347,7 @@ app.post("/api/locations", upload.single("img"), (req, res) => {
     };
   
     if (req.file) {
-      location.main_image = "images/" + req.file.filename;
+      location.image = "images/" + req.file.filename;
     }
   
     locations.push(location);
