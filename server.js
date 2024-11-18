@@ -5,6 +5,8 @@ const Joi = require("joi");
 app.use(cors());
 app.use(express.static("public"));
 const multer = require("multer");
+app.use("/uploads", express.static("uploads"));
+app.use(express.json());
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -330,6 +332,36 @@ app.get("/",(req, res) => {
 app.get("/api/locations", (req, res)=>{
     res.json(locations);
 });
+
+app.post("/api/locations", upload.single("img"), (req, res) => {
+    const result = validateLocation(req.body);
+  
+    if (result.error) {
+      res.status(400).send(result.error.details[0].message);
+      return;
+    }
+  
+    const location = {
+      _id: locations.length + 1,
+      name: req.body.name,
+    };
+  
+    if (req.file) {
+      location.main_image = "images/" + req.file.filename;
+    }
+  
+    locations.push(location);
+    res.status(200).send(location);
+  });
+  
+
+const validateLocation = (location) => {
+    const schema = Joi.object({
+        _id: Joi.allow(""),
+        name: Joi.string().min(3).required(),
+    });
+    return schema.validate(location);
+}
 
 app.listen(3001, () => {
     console.log("Listening....");
