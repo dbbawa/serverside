@@ -21,7 +21,7 @@ const upload = multer({ storage: storage });
 
 const locations = [
     {
-    "id": 1,
+    "_id": 1,
     "name": "Colorado",
     "image": "colorado.jpg",
     "detail_image": "dest-colorado.jpg",
@@ -61,7 +61,7 @@ const locations = [
 ]
 },
 {
-    "id": 2,
+    "_id": 2,
     "name": "Vermont",
     "image": "vermont-page.jpg",
     "detail_image": "dest-vermont.jpg",
@@ -101,7 +101,7 @@ const locations = [
 ]
 },
 {
-    "id": 3,
+    "_id": 3,
     "name": "Utah",
     "image": "utah-page.jpg",
     "detail_image": "dest-utah.jpg",
@@ -139,7 +139,7 @@ const locations = [
 ]
 },
 {
-    "id": 4,
+    "_id": 4,
     "name": "Maine",
     "image": "maine-page.jpg",
     "detail_image": "dest-maine.jpg",
@@ -176,7 +176,7 @@ const locations = [
 ]
 },
 {
-    "id": 5,
+    "_id": 5,
     "name": "New York",
     "image": "ny-page.jpg",
     "detail_image": "dest-ny.jpg",
@@ -213,7 +213,7 @@ const locations = [
 ]
 },
 {
-    "id": 6,
+    "_id": 6,
     "name": "Canada",
     "image": "canada-page.jpg",
     "detail_image": "dest-canada.jpg",
@@ -251,7 +251,7 @@ const locations = [
 ]
 },
 {
-    "id": 7,
+    "_id": 7,
     "name": "California",
     "image": "california-page.jpg",
     "detail_image": "california.jpg",
@@ -287,7 +287,7 @@ const locations = [
 ]
 },
 {
-    "id": 8,
+    "_id": 8,
     "name": "Washington",
     "image": "washington-page.jpg",
     "detail_image": "washington.jpg",
@@ -347,7 +347,7 @@ app.post("/api/locations", upload.single("img"), (req, res) => {
     };
   
     if (req.file) {
-      location.image = "images/" + req.file.filename;
+      location.image = req.file.filename;
     }
   
     locations.push(location);
