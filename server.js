@@ -353,7 +353,40 @@ app.post("/api/locations", upload.single("img"), (req, res) => {
     locations.push(location);
     res.status(200).send(location);
   });
+
+  app.put("/api/locations/:id", upload.single("img"), (req,res) => {
+    let location = locations.find((l) => l._id == parseInt(req.params.id));
+
+    if(!location) res.status(400).send("Location with given id was not found");
+
+    const result = validateLocation(req.body);
+
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
+    location.name = req.body.name;
+
+    if (req.file) {
+        location.main_image = req.file.filename;
+    }
+
+    res.send(location);
+  });
   
+  app.delete("/api/locations/${id}", (req,res)=>{
+    const location = locations.find((l)=>l._id ===parseInt(req.params.id));
+  
+    if(!location){
+      res.status(404).send("The location with the provided id was not found");
+      return;
+    }
+  
+    const index = locations.indexOf(location);
+    locations.splice(index,1);
+    res.status(200).send(location);
+  });
 
 const validateLocation = (location) => {
     const schema = Joi.object({
