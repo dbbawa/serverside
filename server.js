@@ -375,7 +375,7 @@ app.post("/api/locations", upload.single("img"), (req, res) => {
     res.send(location);
   });
   
-  app.delete("/api/locations/${id}", (req,res)=>{
+  app.delete("/api/locations/:id", (req,res)=>{
     const location = locations.find((l)=>l._id ===parseInt(req.params.id));
   
     if(!location){
