@@ -369,7 +369,7 @@ app.post("/api/locations", upload.single("img"), (req, res) => {
     location.name = req.body.name;
 
     if (req.file) {
-        location.main_image = req.file.filename;
+        location.image = req.file.filename;
     }
 
     res.send(location);
