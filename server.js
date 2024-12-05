@@ -7,6 +7,7 @@ app.use(express.static("public"));
 const multer = require("multer");
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());
+const mongoose = require("mongoose");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -19,6 +20,24 @@ const storage = multer.diskStorage({
   
 const upload = multer({ storage: storage });
 
+mongoose 
+  .connect(
+    "mongodb+srv://Jbl6AkxFYfeQTN8O:Jbl6AkxFYfeQTN8O@cluster0.tfhqn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => {
+    console.log("connected to mongodb");
+  })
+  .catch((error) => {
+    console.log("couldn't connect to mongodb", error);
+  });
+
+  const locationSchema = new mongoose.Schema({
+    name: String,
+    img: String,
+  });
+
+  const Location = mongoose.model("Location", locationSchema);
+/*
 const locations = [
     {
     "_id": 1,
@@ -323,17 +342,23 @@ const locations = [
     "Sledding and Tubing"
 ]
 }
-];
+];*/
 
 app.get("/",(req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
 
-app.get("/api/locations", (req, res)=>{
-    res.json(locations);
+app.get("/api/locations", async (req,res) => {
+    const locations = await Location.find();
+    res.send(locations);
 });
 
-app.post("/api/locations", upload.single("img"), (req, res) => {
+app.get("/api/locations/:id", async (req,res) => {
+    const location = await Location.findOne({_id: id });
+    res.send(location);
+});
+
+app.post("/api/locations", upload.single("img"), async (req, res) => {
     const result = validateLocation(req.body);
   
     if (result.error) {
@@ -341,24 +366,19 @@ app.post("/api/locations", upload.single("img"), (req, res) => {
       return;
     }
   
-    const location = {
-      _id: locations.length + 1,
+    const location = new Location ({
       name: req.body.name,
-    };
+    });
   
     if (req.file) {
       location.image = req.file.filename;
     }
   
-    locations.push(location);
-    res.status(200).send(location);
+    const newLocation = await location.save();
+    res.send(newLocation);
   });
 
-  app.put("/api/locations/:id", upload.single("img"), (req,res) => {
-    let location = locations.find((l) => l._id == parseInt(req.params.id));
-
-    if(!location) res.status(400).send("Location with given id was not found");
-
+  app.put("/api/locations/:id", upload.single("img"), async (req,res) => {
     const result = validateLocation(req.body);
 
     if (result.error) {
@@ -366,26 +386,28 @@ app.post("/api/locations", upload.single("img"), (req, res) => {
         return;
     }
 
-    location.name = req.body.name;
+    let fieldsToUpdate = {
+    name: req.body.name
+    };
 
     if (req.file) {
-        location.image = req.file.filename;
+        fieldsToUpdate.image = req.file.filename;
     }
 
-    res.send(location);
+    const wentThrough = await Location.updateOne(
+        { _id: req.params.id },
+        fieldsToUpdate
+    );
+
+    const updatedLocation = await Location.findOne({ _id: req.params.id });
+    res.send(updatedLocation);
   });
   
-  app.delete("/api/locations/:id", (req,res)=>{
-    const location = locations.find((l)=>l._id ===parseInt(req.params.id));
-  
-    if(!location){
-      res.status(404).send("The location with the provided id was not found");
-      return;
-    }
-  
-    const index = locations.indexOf(location);
-    locations.splice(index,1);
-    res.status(200).send(location);
+  app.delete("/api/locations/:id", async (req,res)=>{
+    console.log("im in");
+    console.log(req.params.id);
+    const location = await Location.findByIdAndDelete(req.params.id);
+    res.send(location);
   });
 
 const validateLocation = (location) => {
